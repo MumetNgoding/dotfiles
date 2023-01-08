@@ -15,12 +15,6 @@ sudo nvram SystemAudioVolume=" "
 # Finder: show hidden files by default
 defaults write com.apple.finder AppleShowAllFiles -bool true
 
-# Make Dock icons of hidden applications translucent
-defaults write com.apple.dock showhidden -bool true
-
-# Don’t show recent applications in Dock
-defaults write com.apple.dock show-recents -bool false
-
 # Reset Launchpad, but keep the desktop wallpaper intact
 find "${HOME}/Library/Application Support/Dock" -name "*-*.db" -maxdepth 1 -delete
 
@@ -92,22 +86,6 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 # SSD-specific tweaks
 ###############################################################################
 
-# Disable local Time Machine snapshots
-sudo tmutil disablelocal
-
-# Change hibernation mode and delete last image
-# Check current setting using `pmset -g | grep hibernatemode`
-# OS X hibernation has three modes:
-#   0 = suspend to RAM only (default on desktops)
-#   1 = suspend to disk only
-#   3 = suspend to disk + RAM (default on laptops)
-# If you suspend/resume often and you prefer not to wait, set it to `0`.
-# The risk is that if you hibernate and run out of battery, or the RAM glitches,
-# you might lose unsaved changes. Having the RAM backed up to disk means that you
-# will always be able to resume.
-
-sudo pmset -a hibernatemode 0
-
 # Disable the sudden motion sensor as it’s not useful for SSDs
 sudo pmset -a sms 0
 
@@ -132,12 +110,6 @@ defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 # Disable press-and-hold for keys in favor of key repeat
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
-# Set a faster keyboard repeat rate
-defaults write NSGlobalDomain KeyRepeat -int 1
-defaults write NSGlobalDomain InitialKeyRepeat -int 10
-
-# Set the timezone; see `systemsetup -listtimezones` for other values
-sudo systemsetup -settimezone "Europe/Amsterdam" > /dev/null
 
 ###############################################################################
 # Screen
